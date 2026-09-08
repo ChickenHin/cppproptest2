@@ -6,10 +6,10 @@
 name: CI
 
 on:
-  push:
-    branches: [ main, master, develop ]
-  pull_request:
-    branches: [ main, master, develop ]
+  # push:
+  #   branches: [ main, master, develop ]
+  # pull_request:
+  #   branches: [ main, master, develop ]
   workflow_dispatch:  # Allow manual triggering
 
 env:
@@ -287,25 +287,25 @@ jobs:
         fi
       continue-on-error: false
 
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      continue-on-error: true  # Don't fail if running locally with act
-      with:
-        name: test-results-${{ matrix.os }}-${{ matrix.compiler }}-cpp${{ matrix.cpp_std }}
-        path: |
-          BUILD/**/test_results.xml
-          BUILD/**/*.log
-        retention-days: 7
-        if-no-files-found: ignore
+    # - name: Upload test results
+    #   if: always()
+    #   uses: actions/upload-artifact@v4
+    #   continue-on-error: true  # Don't fail if running locally with act
+    #   with:
+    #     name: test-results-${{ matrix.os }}-${{ matrix.compiler }}-cpp${{ matrix.cpp_std }}
+    #     path: |
+    #       BUILD/**/test_results.xml
+    #       BUILD/**/*.log
+    #     retention-days: 7
+    #     if-no-files-found: ignore
 
-    - name: Upload build artifacts (on failure)
-      if: failure()
-      uses: actions/upload-artifact@v4
-      continue-on-error: true  # Don't fail if running locally with act
-      with:
-        name: build-artifacts-${{ matrix.os }}-${{ matrix.compiler }}-cpp${{ matrix.cpp_std }}
-        path: |
-          BUILD/
-        retention-days: 3
-        if-no-files-found: ignore
+    # - name: Upload build artifacts (on failure)
+    #   if: failure()
+    #   uses: actions/upload-artifact@v4
+    #   continue-on-error: true  # Don't fail if running locally with act
+    #   with:
+    #     name: build-artifacts-${{ matrix.os }}-${{ matrix.compiler }}-cpp${{ matrix.cpp_std }}
+    #     path: |
+    #       BUILD/
+    #     retention-days: 3
+    #     if-no-files-found: ignore
